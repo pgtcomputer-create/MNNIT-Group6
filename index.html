@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecycleRight - Turning Waste into Worth</title>
+    <meta name="description"
+        content="A mobile-first guide to recycling. Sort right, save energy, and upcycle with RecycleRight.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="app-header">
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fa-solid fa-leaf"></i> RecycleRight
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home" class="active" data-section="home">Home</a></li>
+                <li><a href="#guide" data-section="guide">Guide</a></li>
+                <li><a href="#quiz" data-section="quiz">Quiz</a></li>
+                <li><a href="#impact" data-section="impact">Impact</a></li>
+                <li><a href="#upcycle" data-section="upcycle">Upcycle</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <!-- Feature 1: Recycling Awareness (Aligned with Brief) -->
+        <section id="home" class="active-section">
+            <div class="hero">
+                <h1>Turning Waste into <span class="highlight">Worth</span></h1>
+                <p class="subtitle">RecycleRight: Simple, mobile-first recycling awareness for everyone.</p>
+                <div class="cta-group">
+                    <button class="btn btn-primary" onclick="navigateTo('guide')">Start Sorting</button>
+                    <button class="btn btn-secondary" onclick="navigateTo('quiz')">Take the Quiz</button>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>Who We Are</h2>
+                <p>RecycleRight is an early-stage sustainability initiative helping households and communities adopt
+                    effective recycling. We use simple tools to make recycling understandable and actionable—no login
+                    required.</p>
+            </div>
+
+            <div class="content-block">
+                <h2>The Core Challenge</h2>
+                <p>Every day, valuable resources are lost because recycling rules can be confusing. Unclear instructions
+                    lead to:</p>
+                <ul class="bullet-list">
+                    <li>Confusing or inconsistent rules</li>
+                    <li>Technical terminology that's hard to understand</li>
+                    <li>Missed economic opportunities</li>
+                </ul>
+            </div>
+
+            <div class="content-block warning-block">
+                <h3>Why It Matters</h3>
+                <p>If recycling is ignored, we face increased landfill overflow, wasted natural resources, and higher
+                    pollution. Early awareness is key to reducing waste.</p>
+            </div>
+
+            <div class="features-preview">
+                <div class="card">
+                    <i class="fa-solid fa-earth-americas"></i>
+                    <h3>For the Planet</h3>
+                    <p>Prevent pollution and conserve natural resources for future generations.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <h3>Did You Know?</h3>
+                    <p id="daily-fact">Recycling one aluminum can saves enough energy to run a TV for 3 hours!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature 2: structured materials guide -->
+        <section id="guide" class="hidden-section">
+            <div class="section-header">
+                <h2>Recycling Guide</h2>
+                <p>What goes where? Tap a category.</p>
+            </div>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="guide-search" placeholder="Search items (e.g., Pizza Box)...">
+            </div>
+            <div class="categories-grid">
+                <button class="cat-btn active" data-cat="all">All</button>
+                <button class="cat-btn" data-cat="paper">Paper</button>
+                <button class="cat-btn" data-cat="plastic">Plastic</button>
+                <button class="cat-btn" data-cat="glass">Glass</button>
+                <button class="cat-btn" data-cat="metal">Metal</button>
+                <button class="cat-btn" data-cat="organic">Organic</button>
+            </div>
+            <div class="materials-list" id="materials-list">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+        <!-- Feature 3: Interactive Quiz -->
+        <section id="quiz" class="hidden-section">
+            <div class="section-header">
+                <h2>RecycleRight Quiz</h2>
+                <p>Test your knowledge!</p>
+            </div>
+
+            <div class="quiz-mode-selector">
+                <button class="mode-btn active" id="mode-sorting" onclick="switchQuizMode('sorting')">Sorting
+                    Game</button>
+                <button class="mode-btn" id="mode-awareness" onclick="switchQuizMode('awareness')">Awareness
+                    Quiz</button>
+            </div>
+
+            <!-- Sorting Game Container -->
+            <div id="quiz-sorting-container" class="quiz-container">
+                <div class="score-board">
+                    <span>Score: <b id="score">0</b></span>
+                    <span>Streak: <b id="streak">0</b></span>
+                </div>
+                <div class="quiz-card" id="quiz-card">
+                    <div class="quiz-icon" id="quiz-icon">
+                        <!-- Icon goes here -->
+                    </div>
+                    <h3 id="quiz-item-name">Item Name</h3>
+                    <div class="quiz-options">
+                        <button class="btn quiz-btn" data-type="recycle">♻️ Recycle</button>
+                        <button class="btn quiz-btn" data-type="compost">🍂 Compost</button>
+                        <button class="btn quiz-btn" data-type="trash">🗑️ Trash</button>
+                    </div>
+                    <p class="feedback" id="quiz-feedback"></p>
+                </div>
+                <button class="btn btn-secondary" id="next-question" style="display:none;">Next Item</button>
+            </div>
+
+            <!-- Awareness Quiz Container -->
+            <div id="quiz-awareness-container" class="quiz-container" style="display: none;">
+                <div class="score-board">
+                    <span>Score: <b id="aw-score">0</b>/10</span>
+                </div>
+                <div class="quiz-card" id="aw-quiz-card">
+                    <div class="quiz-question-text">
+                        <h3 id="aw-question">Question goes here?</h3>
+                    </div>
+                    <div class="quiz-options-vertical" id="aw-options">
+                        <!-- Options populated by JS -->
+                    </div>
+                    <p class="feedback" id="aw-feedback"></p>
+                </div>
+                <button class="btn btn-secondary" id="aw-next-question" style="display:none;">Next Question</button>
+            </div>
+        </section>
+
+        <!-- Feature 4: Impact Calculator (Innovative 1) -->
+        <section id="impact" class="hidden-section">
+            <div class="section-header">
+                <h2>Impact Calculator</h2>
+                <p>See the energy you save.</p>
+            </div>
+            <div class="calculator-card">
+                <div class="input-group">
+                    <label>Aluminum Cans</label>
+                    <input type="number" id="calc-cans" placeholder="0" min="0">
+                </div>
+                <div class="input-group">
+                    <label>Plastic Bottles</label>
+                    <input type="number" id="calc-bottles" placeholder="0" min="0">
+                </div>
+                <div class="input-group">
+                    <label>Newspapers (stacks)</label>
+                    <input type="number" id="calc-paper" placeholder="0" min="0">
+                </div>
+                <button class="btn btn-primary full-width" id="calc-btn">Calculate Worth</button>
+            </div>
+            <div class="results-area" id="calc-results" style="display:none;">
+                <div class="result-item">
+                    <i class="fa-solid fa-bolt"></i>
+                    <div>
+                        <h4>Energy Saved</h4>
+                        <p id="res-energy">0 kWh</p>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <i class="fa-solid fa-tree"></i>
+                    <div>
+                        <h4>Trees Saved</h4>
+                        <p id="res-trees">0 Trees</p>
+                    </div>
+                </div>
+                <div class="result-message" id="res-comparison">
+                    <!-- Dynamic comparison text -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature 5: DIY Upcycling Ideas (Innovative 2) -->
+        <section id="upcycle" class="hidden-section">
+            <div class="section-header">
+                <h2>DIY Upcycling</h2>
+                <p>Turn trash into treasure.</p>
+            </div>
+            <div class="upcycle-grid" id="upcycle-grid">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+        <!-- Feature: Interactive Pledge Form -->
+        <section id="pledge-section" style="margin-top: 40px; display:block;">
+            <div class="card" style="background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%); color: white;">
+                <h2><i class="fa-solid fa-hand-holding-heart"></i> Take the Pledge</h2>
+                <p style="color: rgba(255,255,255,0.9);">Commit to recycling 3 items today!</p>
+                <form id="pledge-form" onsubmit="handlePledge(event)">
+                    <div class="input-group">
+                        <input type="text" id="pledge-name" placeholder="Your Name" required
+                            style="border:none; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    </div>
+                    <button type="submit" class="btn" style="background: white; color: #56ab2f; width: 100%;">I Pledge
+                        to Recycle!</button>
+                </form>
+                <div id="pledge-success" style="display:none; margin-top:15px;">
+                    <h3>🎉 Thank you, <span id="pledge-user"></span>!</h3>
+                    <p style="color: white;">You're a Recycling Hero!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 RecycleRight. Mobile-first & Planet-friendly.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
